@@ -2,6 +2,7 @@ package com.neo.drools.controller;
 
 import com.neo.drools.model.Address;
 import com.neo.drools.model.fact.AddressCheckResult;
+import com.neo.drools.service.ReloadDroolsRulesService;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 
 @RequestMapping("/test")
@@ -16,14 +18,14 @@ import javax.annotation.Resource;
 public class TestController {
 
     @Resource
-    private KieContainer kieContainer;
+    private ReloadDroolsRulesService rules;
 
     @ResponseBody
     @RequestMapping("/address")
     public void test(int num){
         Address address = new Address();
         address.setPostcode(generateRandom(num));
-        KieSession kieSession = kieContainer.newKieSession();
+        KieSession kieSession = ReloadDroolsRulesService.kieContainer.newKieSession();
 
         AddressCheckResult result = new AddressCheckResult();
         kieSession.insert(address);
@@ -37,6 +39,19 @@ public class TestController {
         }
 
     }
+
+    /**
+     * 从数据加载最新规则
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @RequestMapping("/reload")
+    public String reload() throws IOException {
+        rules.reload();
+        return "ok";
+    }
+
 
     /**
      * 生成随机数

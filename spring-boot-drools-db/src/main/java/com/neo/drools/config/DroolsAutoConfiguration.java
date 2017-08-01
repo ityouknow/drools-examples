@@ -1,5 +1,6 @@
 package com.neo.drools.config;
 
+import com.neo.drools.service.ReloadDroolsRulesService;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
@@ -53,6 +54,8 @@ public class DroolsAutoConfiguration {
 
         KieContainer kieContainer=getKieServices().newKieContainer(kieRepository.getDefaultReleaseId());
 
+        ReloadDroolsRulesService.kieContainer=kieContainer;
+        
         return kieContainer;
     }
     

@@ -32,7 +32,7 @@ public class ReloadDroolsRulesService {
 
     private List<Rule>  loadRules(){
         List<Rule> rules=ruleRepository.findAll();
-        System.out.println(rules.toString());
+//        System.out.println(rules.toString());
         return rules;
     }
 
