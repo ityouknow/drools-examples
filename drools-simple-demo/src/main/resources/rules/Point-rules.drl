@@ -1,0 +1,48 @@
+package rules
+
+import com.neo.drools.entity.Order
+import com.neo.drools.entity.User
+
+rule "zero"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $s : Order(amout <= 100)
+    then
+        $s.setScore(0);
+        update($s);
+end
+
+rule "add100"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $s : Order(amout > 100 && amout <= 500)
+    then
+        $s.setScore(100);
+        update($s);
+end
+
+rule "add500"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $s : Order(amout > 500 && amout <= 1000)
+    then
+        $s.setScore(500);
+        update($s);
+end
+
+rule "add1000"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+        $s : Order(amout > 1000)
+    then
+        $s.setScore(1000);
+        update($s);
+end
