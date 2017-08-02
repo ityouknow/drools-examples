@@ -1,7 +1,6 @@
 package rules
 
 import com.neo.drools.entity.Order
-import com.neo.drools.entity.User
 
 rule "zero"
     no-loop true
