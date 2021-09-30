@@ -1,0 +1,23 @@
+package rules;
+dialect  "mvel"
+
+declare Double
+@role( event )
+end
+
+//匹配最近10s内的数据
+rule "test02"
+    when
+        $d : Double() over window:time(10s)
+    then
+        System.out.println($d);
+end
+
+//匹配最近1次的数据
+rule "test02 - 01"
+    when
+        $d : Double() over window:length(2)
+    then
+        System.out.println($d);
+end
+
