@@ -1,0 +1,30 @@
+package rules;
+dialect  "mvel"
+
+//延迟
+rule "test01"
+timer (int: 10s)
+    when
+        eval(true)
+    then
+        System.out.println(1111);
+end
+
+//延迟后轮询
+//延迟10s 轮询5s
+rule "test01 - 01"
+timer (int: 10s 5s)
+    when
+        eval(true)
+    then
+        System.out.println(22222);
+end
+
+
+rule "test01 - 02"
+timer (cron: 0/2 * * * * ?)
+    when
+        eval(true)
+    then
+        System.out.println(3333);
+end
